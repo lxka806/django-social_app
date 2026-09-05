@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users</title>
+</head>
+<body>
+
+    <h1>All Users</h1>
+
+    {% for user in all_users %}
+        <a href="{% url 'user_info' user.id %}">
+            <div>
+                <h2>{{ user.username }}</h2>
+                <p>{{ user.email }}</p>
+            </div>
+        </a>
+    {% empty %}
+        <p>No users found.</p>
+    {% endfor %}
+
+</body>
+</html>
