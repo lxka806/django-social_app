@@ -1,0 +1,18 @@
+{% extends "master.html" %}
+
+{% block title %}{{ user.username }}{% endblock title %}
+
+{% block content %}
+<section class="feed-column">
+    <div class="profile-cover">
+        <div class="profile-top">
+            <span class="avatar large">{% if user.avatar_url %}<img src="{{ user.avatar_url }}" alt="{{ user.username }}">{% else %}{{ user.username|first|upper }}{% endif %}</span>
+            <div class="profile-intro"><p class="eyebrow">User details</p><h1>{{ user.username }}</h1><p>{{ user.bio|default:"No bio yet." }}</p></div>
+        </div>
+    </div>
+    <div class="page-heading"><div><p class="eyebrow">Posts</p><h2>{{ user.username }}'s posts</h2></div></div>
+    {% for post in posts %}
+        <article class="post-card"><div class="post-copy"><h3>{{ post.title }}</h3><p>{{ post.content }}</p><p class="muted">{{ post.likes.count }} like{{ post.likes.count|pluralize }}</p></div></article>
+    {% empty %}<div class="empty-state"><h2>No posts yet</h2><p>This user has not added a post.</p></div>{% endfor %}
+</section>
+{% endblock content %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}Commonroom{% endblock %} · Commonroom
+    </title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    {% load static %}
+
+<link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="{% url 'all_posts' %}"><span class="brand-mark">c</span><span class="brand-name">Commonroom</span></a>
+            {% if current_user %}<nav class="nav" aria-label="Primary navigation">
+                <a class="nav-link" href="{% url 'all_posts' %}"><span class="nav-icon">⌂</span>Home</a>
+                <a class="nav-link" href="{% url 'add_posts' %}"><span class="nav-icon">＋</span>Create post</a>
+                <a class="nav-link" href="{% url 'profile_user' %}"><span class="nav-icon">◯</span>Profile</a>
+            </nav><div class="sidebar-bottom">
+                <a class="mini-profile" href="{% url 'profile_user' %}"><span class="avatar">{{ current_user.username|first|upper }}</span><span><strong>{{ current_user.username }}</strong>View profile</span></a>
+                <a class="nav-link" href="{% url 'logout_user' %}"><span class="nav-icon">↪</span>Log out</a>
+            </div>{% else %}<div class="auth-actions"><a class="primary-button" href="{% url 'login_user' %}">Log in</a><a class="secondary-button" href="{% url 'register_user' %}">Register</a></div>{% endif %}
+        </aside>
+        <div class="page">
+            <header class="mobile-topbar"><a class="brand" href="{% url 'all_posts' %}"><span class="brand-mark">c</span><span class="brand-name">Commonroom</span></a>{% if not current_user %}<span style="display:flex;gap:8px;"><a class="secondary-button" style="min-height:34px;padding:0 10px;font-size:12px;" href="{% url 'login_user' %}">Log in</a><a class="primary-button" style="min-height:34px;padding:0 10px;font-size:12px;" href="{% url 'register_user' %}">Register</a></span>{% endif %}</header>
+            <main class="content-grid">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+    {% if current_user %}<nav class="mobile-nav" aria-label="Mobile navigation">
+        <a href="{% url 'all_posts' %}"><span class="nav-icon">⌂</span>Home</a>
+        <a href="{% url 'add_posts' %}"><span class="nav-icon">＋</span>Create</a>
+        <a href="{% url 'profile_user' %}"><span class="nav-icon">◯</span>Profile</a>
+        <a href="{% url 'logout_user' %}"><span class="nav-icon">↪</span>Exit</a>
+    </nav>{% endif %}
+</body>
+</html>

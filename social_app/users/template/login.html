@@ -1,0 +1,17 @@
+{% extends "master.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <section class="feed-column">
+    <div class="page-heading"><div><p class="eyebrow">Welcome back</p><h1>Log in</h1></div></div>
+    <div class="form-card">
+    <form method="post">
+        {% csrf_token %}
+        {{ context }}
+        <button class="primary-button" type="submit">Log in</button>
+    </form>
+    <p class="muted" style="margin-top:20px;">New here? <a href="{% url 'register_user' %}" style="color:var(--accent);font-weight:700;">Create an account</a></p>
+    </div>
+    </section>
+{% endblock %}

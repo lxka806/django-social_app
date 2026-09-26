@@ -1,0 +1,19 @@
+{% extends "master.html" %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block content %}
+    <section class="feed-column">
+        <div class="profile-cover">
+            <div class="profile-top">
+                <span class="avatar large">{% if user.avatar_url %}<img src="{{ user.avatar_url }}" alt="{{ user.username }}">{% else %}{{ user.username|first|upper }}{% endif %}</span>
+                <div class="profile-intro"><p class="eyebrow">Your corner of Commonroom</p><h1>{{ user.username }}</h1><p>{{ user.bio|default:"No bio yet. Add a little context about yourself." }}</p></div>
+            </div>
+            <div class="stats"><div><strong>{{ post_count }}</strong><span>Posts</span></div></div>
+        </div>
+        <div class="page-heading"><div><p class="eyebrow">Archive</p><h2>{{ user.username }}'s posts</h2></div></div>
+        <div class="profile-grid">
+            {% for post in posts %}<a class="profile-tile" href="{% url 'all_posts' %}#post-{{ post.id }}"><span class="profile-tile-copy"><strong>{{ post.title }}</strong></span></a>{% empty %}<div class="empty-state" style="grid-column:1/-1"><h2>No posts yet</h2><p>Your first post will live here.</p><a class="primary-button" href="{% url 'add_posts' %}">Create a post</a></div>{% endfor %}
+        </div>
+    </section>
+{% endblock %}
