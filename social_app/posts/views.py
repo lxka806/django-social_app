@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .utils import add_post, get_all_posts
-from .forms import AddPost
-from .models import Post
+from .forms import AddPost, AddComment
+from .models import Post, Comment
 
 from users.models import User
 from users.utils import get_current_user
@@ -19,7 +19,6 @@ def all_posts(req):
     }
 
     return render(req, "all_posts.html", context)
-
 
 def add_posts(req):
     try:
@@ -40,7 +39,6 @@ def add_posts(req):
 
     return render(req, "add_posts.html", context)
 
-
 def like_post(req, post_id):
     post = get_object_or_404(Post, id=post_id)
     try:
@@ -55,9 +53,30 @@ def like_post(req, post_id):
     return redirect("all_posts")
 
 def delete_post(req, post_id):
+
     post = get_object_or_404(Post, id=post_id)
 
     if req.method == "POST":
         post.delete()
     
+    return redirect("all_posts")
+
+
+def add_comment(req, post_id):
+    try:
+        user = get_current_user()
+    except User.DoesNotExist:
+        return redirect("login_user")
+
+    post = get_object_or_404(Post, id=post_id)
+
+    form = AddComment(req.POST)
+
+    if req.method == "POST" and form.is_valid():
+        Comment.objects.create(
+            post=post,
+            user=user,
+            content=form.cleaned_data["content"]
+        )
+
     return redirect("all_posts")

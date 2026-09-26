@@ -1,0 +1,293 @@
+/* ============================================
+   SIDEBAR + MOBILE NAVIGATION
+   ============================================ */
+
+/* Sidebar */
+.sidebar {
+    position: sticky;
+    top: 0;
+
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 32px 20px 24px;
+
+    border-right: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.86);
+}
+
+/* Brand */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    padding: 0 12px 42px;
+}
+
+.brand-mark {
+    width: 30px;
+    height: 30px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 9px;
+
+    background: var(--ink);
+    color: #fff;
+
+    font-family: Georgia, serif;
+    font-size: 18px;
+}
+
+.brand-name {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 22px;
+    letter-spacing: -0.4px;
+}
+
+/* Nav links */
+.nav {
+    display: grid;
+    gap: 6px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    color: #67706b;
+    font-weight: 600;
+
+    transition:
+        background 0.2s,
+        color 0.2s,
+        transform 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--ink);
+    background: var(--wash);
+    transform: translateX(2px);
+}
+
+.nav-icon {
+    width: 22px;
+
+    text-align: center;
+
+    font-size: 19px;
+    line-height: 1;
+}
+
+/* Sidebar bottom */
+.sidebar-bottom {
+    margin-top: auto;
+
+    display: grid;
+    gap: 10px;
+}
+
+.auth-actions {
+    display: grid;
+    gap: 10px;
+
+    margin-top: auto;
+    padding: 12px;
+}
+
+.auth-actions .primary-button,
+.auth-actions .secondary-button {
+    width: 100%;
+}
+
+.mini-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px;
+
+    border-top: 1px solid var(--line);
+
+    color: var(--muted);
+}
+
+.mini-profile strong {
+    display: block;
+
+    color: var(--ink);
+    font-size: 13px;
+}
+
+/* Mobile topbar (hidden by default) */
+.mobile-topbar {
+    display: none;
+}
+
+/* Right rail */
+.right-rail {
+    padding-top: 55px;
+}
+
+.rail-profile,
+.suggestion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rail-profile {
+    margin-bottom: 32px;
+}
+
+.rail-profile .avatar,
+.suggestion .avatar {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+}
+
+.rail-profile div,
+.suggestion div {
+    min-width: 0;
+    flex: 1;
+}
+
+.rail-profile strong,
+.suggestion strong {
+    display: block;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 13px;
+}
+
+.rail-profile span,
+.suggestion span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.rail-title {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 14px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.rail-title a {
+    color: var(--ink);
+}
+
+.suggestion {
+    margin-bottom: 15px;
+}
+
+.follow {
+    border: 0;
+
+    background: transparent;
+    color: var(--accent);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Hide right rail on narrow */
+@media (max-width: 1040px) {
+    .right-rail {
+        display: none;
+    }
+}
+
+/* Mobile navigation */
+@media (max-width: 700px) {
+    .sidebar {
+        display: none;
+    }
+
+    .mobile-topbar {
+        height: 62px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 18px;
+
+        border-bottom: 1px solid var(--line);
+
+        background: #fff;
+    }
+
+    .mobile-topbar .brand {
+        padding: 0;
+    }
+
+    .mobile-topbar .brand-mark {
+        width: 26px;
+        height: 26px;
+    }
+
+    .mobile-topbar .brand-name {
+        font-size: 19px;
+    }
+
+    .mobile-nav {
+        position: fixed;
+
+        z-index: 10;
+
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        height: 66px;
+
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+
+        border-top: 1px solid var(--line);
+
+        background: rgba(255, 255, 255, 0.96);
+    }
+
+    .mobile-nav a {
+        display: grid;
+        place-items: center;
+        align-content: center;
+        gap: 2px;
+
+        color: var(--muted);
+
+        font-size: 10px;
+        font-weight: 600;
+    }
+
+    .mobile-nav .nav-icon {
+        font-size: 18px;
+    }
+
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+        color: var(--ink);
+    }
+}

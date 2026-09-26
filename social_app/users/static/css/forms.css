@@ -1,0 +1,93 @@
+/* ============================================
+   FORMS (login, signup, create post, etc.)
+   ============================================ */
+
+.form-card {
+    padding: 30px;
+
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+
+    background: #fff;
+
+    box-shadow: var(--shadow);
+}
+
+.form-card form p {
+    margin-bottom: 17px;
+}
+
+label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #4e5a53;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid var(--line);
+    border-radius: 11px;
+
+    outline: none;
+
+    background: #fbfcfb;
+    color: var(--ink);
+
+    transition:
+        border 0.2s,
+        box-shadow 0.2s;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #94b0a0;
+
+    box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+/* Search bar */
+.search-bar {
+    display: flex;
+    gap: 10px;
+
+    margin-bottom: 24px;
+}
+
+.search-bar input {
+    background: #fff;
+}
+
+/* Small helper for inline text buttons */
+.text-button {
+    border: 0;
+
+    background: transparent;
+    color: var(--accent);
+
+    font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    .form-card,
+    .search-bar {
+        margin-right: 16px;
+        margin-left: 16px;
+    }
+
+    .form-card {
+        padding: 22px 18px;
+    }
+}

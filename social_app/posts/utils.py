@@ -1,4 +1,4 @@
-from .models import Post
+from .models import Post, Comment
 from users.utils import get_current_user
 
 def add_post(req):

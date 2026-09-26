@@ -23,7 +23,15 @@
 
     {% load static %}
 
-<link rel="stylesheet" href="{% static 'index.css' %}">
+    {% load static %}
+
+    <head>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+        <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+        <link rel="stylesheet" href="{% static 'css/comments.css' %}">
+        <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    </head>
 </head>
 <body>
     <div class="app-shell">

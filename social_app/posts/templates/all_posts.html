@@ -35,8 +35,40 @@
                         </form>
                     {% endif %}
                 </header>
-                <div class="post-copy"><h3>{{ post.title }}</h3><p>{{ post.content }}</p></div>
-                <div class="post-actions"><a class="action" href="{% url 'like_post' post.id %}">♡ <span>Like</span></a><span class="muted">{{ post.likes.count }} like{{ post.likes.count|pluralize }}</span></div>
+                <div class="post-copy">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.content }}</p>
+                </div>
+                <div class="post-actions">
+                    <a class="action" href="{% url 'like_post' post.id %}">♡ <span>Like</span></a>
+                    <span class="muted">{{ post.likes.count }} like{{ post.likes.count|pluralize }}</span>
+                </div>
+                <div class="comments">
+
+                    {% for comment in post.comments.all %}
+                        <div class="comment">
+                            <strong>{{ comment.user.username }}</strong>
+                            <p>{{ comment.content }}</p>
+                            <small>{{ comment.created_at }}</small>
+                        </div>
+                    {% empty %}
+                        <p>No comments yet.</p>
+                    {% endfor %}
+
+                    <form method="POST" action="{% url 'add_comment' post.id %}">
+                        {% csrf_token %}
+
+                        <input
+                            type="text"
+                            name="content"
+                            placeholder="Write a comment..."
+                            required
+                        >
+
+                        <button type="submit">Comment</button>
+                    </form>
+
+                </div>
             </article>
         {% empty %}<div class="empty-state"><h2>Your feed is quiet.</h2><p>Share the first thought and give your room a little life.</p><a class="primary-button" href="{% url 'add_posts' %}">Create a post</a></div>{% endfor %}
     </section>

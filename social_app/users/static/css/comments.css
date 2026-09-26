@@ -1,0 +1,176 @@
+/* ============================================
+   COMMENTS
+   ============================================ */
+
+.comments {
+    padding: 16px 18px 18px;
+    border-top: 1px solid var(--line);
+    background: #fcfdfc;
+}
+
+/* Individual comment */
+.comment {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    padding: 12px 14px;
+    margin-bottom: 8px;
+
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.comment:hover {
+    border-color: #d0dbd4;
+    box-shadow: 0 4px 12px rgba(20, 32, 26, 0.04);
+}
+
+/* Comment author */
+.comment strong {
+    display: inline-block;
+
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+
+    line-height: 1.3;
+}
+
+/* Comment text */
+.comment p {
+    margin: 0;
+
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: #3d4741;
+
+    word-break: break-word;
+}
+
+/* Comment timestamp */
+.comment small {
+    font-size: 11px;
+    color: var(--muted);
+
+    margin-top: 2px;
+    letter-spacing: 0.2px;
+}
+
+/* "No comments yet" empty message */
+.comments > p {
+    margin: 0 0 12px;
+
+    padding: 14px 12px;
+
+    background: var(--paper);
+    border: 1px dashed #d0dbd4;
+    border-radius: 14px;
+
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+}
+
+/* Comment form (matches markup: .comments form) */
+.comments form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 14px;
+    padding-top: 14px;
+
+    border-top: 1px solid var(--line);
+}
+
+/* Input field */
+.comments form input[type="text"] {
+    flex: 1;
+    min-width: 0;
+
+    padding: 12px 16px;
+
+    border: 1px solid var(--line);
+    border-radius: 24px;
+
+    background: var(--paper);
+    color: var(--ink);
+
+    font-size: 13.5px;
+
+    outline: none;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.comments form input[type="text"]::placeholder {
+    color: #a8b2ac;
+    font-weight: 400;
+}
+
+.comments form input[type="text"]:focus {
+    border-color: #94b0a0;
+    box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+/* Submit button */
+.comments form button {
+    flex-shrink: 0;
+
+    padding: 0 20px;
+    height: 42px;
+
+    border: 0;
+    border-radius: 24px;
+
+    background: var(--ink);
+    color: #fff;
+
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+
+    cursor: pointer;
+
+    transition: background 0.2s, transform 0.2s;
+}
+
+.comments form button:hover {
+    background: var(--accent);
+    transform: translateY(-1px);
+}
+
+.comments form button:active {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    .comments {
+        padding: 14px 16px 16px;
+    }
+
+    .comment {
+        padding: 11px 12px;
+        border-radius: 12px;
+    }
+
+    .comments form {
+        gap: 8px;
+    }
+
+    .comments form input[type="text"] {
+        padding: 11px 14px;
+        font-size: 13px;
+    }
+
+    .comments form button {
+        padding: 0 16px;
+        height: 40px;
+        font-size: 12.5px;
+    }
+}
