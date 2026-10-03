@@ -1,93 +1,115 @@
 /* ============================================
-   FORMS (login, signup, create post, etc.)
+   FORMS
    ============================================ */
 
 .form-card {
-    padding: 30px;
-
+    padding: 28px 24px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
-
-    background: #fff;
-
-    box-shadow: var(--shadow);
+    background: var(--paper);
 }
 
-.form-card form p {
-    margin-bottom: 17px;
+.form-card form p { margin-bottom: 16px; }
+
+.form-card > p.muted {
+    margin: 0 0 20px;
+    color: var(--muted);
+    font-size: 13.5px;
 }
 
+/* Base field styling — targets Django's form.as_p output */
 label {
     display: block;
-
-    margin-bottom: 7px;
-
-    color: #4e5a53;
-
-    font-size: 12px;
-    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--ink);
+    font-size: 12.5px;
+    font-weight: 600;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="url"],
-textarea {
+input[type="number"],
+textarea,
+select {
     width: 100%;
-
-    padding: 13px 14px;
-
+    padding: 12px 14px;
     border: 1px solid var(--line);
-    border-radius: 11px;
-
+    border-radius: var(--radius-sm);
     outline: none;
-
-    background: #fbfcfb;
+    background: var(--bg);
     color: var(--ink);
-
-    transition:
-        border 0.2s,
-        box-shadow 0.2s;
+    font-size: 14px;
+    transition: border-color 0.15s ease, background 0.15s ease,
+                box-shadow 0.15s ease;
 }
 
-input:focus,
-textarea:focus {
-    border-color: #94b0a0;
+input::placeholder,
+textarea::placeholder { color: var(--muted); }
 
-    box-shadow: 0 0 0 4px var(--accent-soft);
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--ink);
+    background: var(--paper);
+    box-shadow: 0 0 0 3px rgba(17,17,17,0.06);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+/* Error list rendering (Django errorlist) */
+.errorlist {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+    color: var(--like);
+    font-size: 12px;
+    font-weight: 500;
+}
+.errorlist li { margin: 0; }
+
+input.invalid,
+textarea.invalid,
+select.invalid {
+    border-color: var(--like);
+    background: rgba(237, 73, 86, 0.04);
+}
+input.invalid:focus,
+textarea.invalid:focus {
+    box-shadow: 0 0 0 3px rgba(237, 73, 86, 0.12);
+}
+
+/* File input */
+input[type="file"] {
+    padding: 10px;
+    background: var(--bg);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    width: 100%;
+    font-size: 13px;
+    color: var(--muted);
+}
+input[type="file"]:hover { border-color: #C7C7C7; background: var(--paper); }
+
+/* Form submit button spacing */
+.form-card form > button,
+.form-card form > .primary-button {
+    margin-top: 8px;
+    width: 100%;
 }
 
 /* Search bar */
 .search-bar {
     display: flex;
     gap: 10px;
-
     margin-bottom: 24px;
 }
+.search-bar input { background: var(--paper); }
 
-.search-bar input {
-    background: #fff;
-}
-
-/* Small helper for inline text buttons */
-.text-button {
-    border: 0;
-
-    background: transparent;
-    color: var(--accent);
-
-    font-weight: 700;
-}
-
-/* Responsive */
-@media (max-width: 700px) {
-    .form-card,
-    .search-bar {
-        margin-right: 16px;
-        margin-left: 16px;
-    }
-
-    .form-card {
-        padding: 22px 18px;
-    }
-}
+/* Inline text link */
+.form-card a[href] { color: #0095F6; font-weight: 600; }

@@ -1,63 +1,123 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>
-        {% block title %}Commonroom{% endblock %} · Commonroom
-    </title>
+    <title>{% block title %}Commonroom{% endblock %} · Commonroom</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-        rel="stylesheet"
-    >
-
-    {% load static %}
-
-    {% load static %}
-
-    <head>
-        <link rel="stylesheet" href="{% static 'css/base.css' %}">
-        <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-        <link rel="stylesheet" href="{% static 'css/posts.css' %}">
-        <link rel="stylesheet" href="{% static 'css/comments.css' %}">
-        <link rel="stylesheet" href="{% static 'css/forms.css' %}">
-    </head>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/comments.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 </head>
 <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/>
+            </symbol>
+            <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <rect x="3.5" y="3.5" width="17" height="17" rx="5"/><path d="M12 8v8M8 12h8"/>
+            </symbol>
+            <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.5c1.4-3.6 4.2-5.4 7.5-5.4s6.1 1.8 7.5 5.4"/>
+            </symbol>
+            <symbol id="i-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 4h3.5A1.5 1.5 0 0 1 20 5.5v13A1.5 1.5 0 0 1 18.5 20H15"/>
+                <path d="M10 8l-4 4 4 4"/><path d="M6 12h10"/>
+            </symbol>
+        </defs>
+    </svg>
+
     <div class="app-shell">
         <aside class="sidebar">
-            <a class="brand" href="{% url 'all_posts' %}"><span class="brand-mark">c</span><span class="brand-name">Commonroom</span></a>
-            {% if current_user %}<nav class="nav" aria-label="Primary navigation">
-                <a class="nav-link" href="{% url 'all_posts' %}"><span class="nav-icon">⌂</span>Home</a>
-                <a class="nav-link" href="{% url 'add_posts' %}"><span class="nav-icon">＋</span>Create post</a>
-                <a class="nav-link" href="{% url 'profile_user' %}"><span class="nav-icon">◯</span>Profile</a>
-            </nav><div class="sidebar-bottom">
-                <a class="mini-profile" href="{% url 'profile_user' %}"><span class="avatar">{{ current_user.username|first|upper }}</span><span><strong>{{ current_user.username }}</strong>View profile</span></a>
-                <a class="nav-link" href="{% url 'logout_user' %}"><span class="nav-icon">↪</span>Log out</a>
-            </div>{% else %}<div class="auth-actions"><a class="primary-button" href="{% url 'login_user' %}">Log in</a><a class="secondary-button" href="{% url 'register_user' %}">Register</a></div>{% endif %}
+            <a class="brand" href="{% url 'all_posts' %}">
+                <span class="brand-mark">c</span>
+                <span class="brand-name">Commonroom</span>
+            </a>
+
+            {% if current_user %}
+                <nav class="nav" aria-label="Primary navigation">
+                    <a class="nav-link" href="{% url 'all_posts' %}">
+                        <svg class="nav-icon"><use href="#i-home"/></svg><span>Home</span>
+                    </a>
+                    <a class="nav-link" href="{% url 'add_posts' %}">
+                        <svg class="nav-icon"><use href="#i-plus"/></svg><span>Create post</span>
+                    </a>
+                    <a class="nav-link" href="{% url 'profile_user' %}">
+                        <svg class="nav-icon"><use href="#i-user"/></svg><span>Profile</span>
+                    </a>
+                </nav>
+
+                <div class="sidebar-bottom">
+                    <a class="mini-profile" href="{% url 'profile_user' %}">
+                        <span class="avatar avatar-sm">
+                            {% if current_user.avatar %}
+                                <img src="{{ current_user.avatar.url }}" alt="" id="avatar">
+                            {% else %}
+                                <span>{{ user.username }}</span>
+                            {% endif %}
+                        </span>
+                        <span class="mini-profile-text">
+                            <strong>{{ current_user.username }}</strong>
+                            <small>View profile</small>
+                        </span>
+                    </a>
+                    <a class="nav-link" href="{% url 'logout_user' %}">
+                        <svg class="nav-icon"><use href="#i-logout"/></svg><span>Log out</span>
+                    </a>
+                </div>
+            {% else %}
+                <div class="auth-actions">
+                    <a class="primary-button" href="{% url 'login_user' %}">Log in</a>
+                    <a class="secondary-button" href="{% url 'register_user' %}">Register</a>
+                </div>
+            {% endif %}
         </aside>
+
         <div class="page">
-            <header class="mobile-topbar"><a class="brand" href="{% url 'all_posts' %}"><span class="brand-mark">c</span><span class="brand-name">Commonroom</span></a>{% if not current_user %}<span style="display:flex;gap:8px;"><a class="secondary-button" style="min-height:34px;padding:0 10px;font-size:12px;" href="{% url 'login_user' %}">Log in</a><a class="primary-button" style="min-height:34px;padding:0 10px;font-size:12px;" href="{% url 'register_user' %}">Register</a></span>{% endif %}</header>
+            <header class="mobile-topbar">
+                <a class="brand" href="{% url 'all_posts' %}">
+                    <span class="brand-mark">c</span>
+                    <span class="brand-name">Commonroom</span>
+                </a>
+                {% if not current_user %}
+                    <div class="topbar-actions">
+                        <a class="secondary-button btn-sm" href="{% url 'login_user' %}">Log in</a>
+                        <a class="primary-button btn-sm" href="{% url 'register_user' %}">Register</a>
+                    </div>
+                {% endif %}
+            </header>
+
             <main class="content-grid">
                 {% block content %}{% endblock %}
             </main>
         </div>
     </div>
-    {% if current_user %}<nav class="mobile-nav" aria-label="Mobile navigation">
-        <a href="{% url 'all_posts' %}"><span class="nav-icon">⌂</span>Home</a>
-        <a href="{% url 'add_posts' %}"><span class="nav-icon">＋</span>Create</a>
-        <a href="{% url 'profile_user' %}"><span class="nav-icon">◯</span>Profile</a>
-        <a href="{% url 'logout_user' %}"><span class="nav-icon">↪</span>Exit</a>
-    </nav>{% endif %}
+
+    {% if current_user %}
+        <nav class="mobile-nav" aria-label="Mobile navigation">
+            <a href="{% url 'all_posts' %}">
+                <svg class="nav-icon"><use href="#i-home"/></svg><span>Home</span>
+            </a>
+            <a href="{% url 'add_posts' %}">
+                <svg class="nav-icon"><use href="#i-plus"/></svg><span>Create</span>
+            </a>
+            <a href="{% url 'profile_user' %}">
+                <svg class="nav-icon"><use href="#i-user"/></svg><span>Profile</span>
+            </a>
+            <a href="{% url 'logout_user' %}">
+                <svg class="nav-icon"><use href="#i-logout"/></svg><span>Exit</span>
+            </a>
+        </nav>
+    {% endif %}
 </body>
 </html>

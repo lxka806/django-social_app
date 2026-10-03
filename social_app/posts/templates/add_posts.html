@@ -3,15 +3,22 @@
 {% block title %}Create post{% endblock title %}
 
 {% block content %}
-    <section class="feed-column">
-    <div class="page-heading"><div><p class="eyebrow">Make something public</p><h1>Create a post</h1></div><a class="secondary-button" href="{% url 'all_posts' %}">Cancel</a></div>
+<section class="feed-column">
+    <div class="page-heading">
+        <div>
+            <p class="eyebrow">Make something public</p>
+            <h1>Create a post</h1>
+        </div>
+        <a class="secondary-button" href="{% url 'all_posts' %}">Cancel</a>
+    </div>
+
     <div class="form-card">
         <p class="muted">A title and a thought. Keep it simple and honest.</p>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="primary-button" type="submit">Create post</button>
-    </form>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="primary-button" type="submit">Create post</button>
+        </form>
     </div>
-    </section>
+</section>
 {% endblock content %}

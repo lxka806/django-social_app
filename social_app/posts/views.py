@@ -26,11 +26,13 @@ def add_posts(req):
     except User.DoesNotExist:
         return redirect("login_user")
 
-    form = AddPost(req.POST or None)
+    form = AddPost(req.POST or None, req.FILES)
     if req.method == "POST":
         if form.is_valid():
             add_post(form.cleaned_data)
+            print(form.cleaned_data)
             return redirect("all_posts")
+
 
     context = {
         "form": form,

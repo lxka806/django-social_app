@@ -1,0 +1,92 @@
+/* ============================================
+   FILE UPLOAD
+   ============================================ */
+
+.file-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 420px;
+    margin: 32px auto;
+    padding: 24px;
+    background: var(--surface, #fff);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.file-upload-dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 32px 20px;
+    border: 2px dashed var(--border, #d1d5db);
+    border-radius: 12px;
+    background: var(--surface-muted, #fafafa);
+    color: var(--text-muted, #6b7280);
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.file-upload-dropzone:hover,
+.file-upload-dropzone:focus-within {
+    border-color: var(--accent, #6366f1);
+    background: var(--accent-soft, #eef2ff);
+    color: var(--accent, #6366f1);
+}
+
+.file-upload-icon {
+    color: currentColor;
+    opacity: 0.7;
+    margin-bottom: 4px;
+}
+
+.file-upload-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text, #111827);
+}
+
+.file-upload-hint {
+    font-size: 12px;
+    color: var(--text-muted, #9ca3af);
+}
+
+/* Hide the native input but keep it accessible */
+.file-upload-dropzone input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Show the chosen filename once selected */
+.file-upload-dropzone input[type="file"]:valid + .file-upload-text::after {
+    content: attr(data-file);
+}
+
+.file-upload-submit {
+    align-self: stretch;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    .file-upload {
+        margin: 20px 12px;
+        padding: 18px;
+    }
+    .file-upload-dropzone {
+        padding: 24px 14px;
+    }
+}

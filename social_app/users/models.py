@@ -7,4 +7,4 @@ class User(models.Model):
     password = models.CharField(max_length=100, default="")
     is_current_user = models.BooleanField(default=0)
     bio = models.CharField(max_length=160, blank=True, default="")
-    avatar_url = models.URLField(blank=True, default="")
+    avatar = models.ImageField(upload_to="avatars/", null=True, blank=True)

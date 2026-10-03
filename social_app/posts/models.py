@@ -15,6 +15,7 @@ class Post(models.Model):
         blank=True
     )
     created_at = models.DateTimeField(auto_now_add=True)
+    post_image = models.ImageField(upload_to="avatars/", null=True, blank=True)
 
 
 class Comment(models.Model):

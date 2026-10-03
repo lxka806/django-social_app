@@ -50,6 +50,11 @@ def get_profile(req):
         "post_count": user.posts.count(),
     }
 
+    if req.method == "POST":
+        image = req.FILES.get('image')
+        user.avatar = image
+        user.save()
+
     return render(req, "profile.html", context)
 
 

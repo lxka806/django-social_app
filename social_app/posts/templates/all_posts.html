@@ -3,74 +3,80 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-    <section class="feed-column">
-        <div class="page-heading">
-            <div><p class="eyebrow">Tuesday, September 15</p><h1>Good morning{% if current_user %}, {{ current_user.username }}{% endif %}</h1></div>
-            <a class="secondary-button" href="{% url 'add_posts' %}">＋ Create</a>
+<section class="feed-column">
+    <div class="page-heading">
+        <div>
+            <p class="eyebrow">Tuesday, September 15</p>
+            <h1>Good morning{% if current_user %}, {{ current_user.username }}{% endif %}</h1>
         </div>
+        <a class="secondary-button" href="{% url 'add_posts' %}">Create</a>
+    </div>
 
-        {% for post in all_posts %}
-            <article class="post-card" id="post-{{ post.id }}">
-                <header class="post-head">
-                    <a class="avatar" href="{% url 'user_info' post.user.id %}">
-                        {% if post.user.avatar_url %}
-                            <img src="{{ post.user.avatar_url }}" alt="{{ post.user.username }}">
-                        {% else %}
-                            {{ post.user.username }}
-                        {% endif %}
-                    </a>
-
-                    <div class="post-head-info">
-                        <strong>
-                            {{ post.user.username }}
-                            <span class="verified">●</span>
-                        </strong>
-                        <span>{{ post.created_at }}</span>
-                    </div>
-
-                    {% if post.user.username == current_user.username %}
-                        <form method="post" action="{% url "delete_post" post.id %}">
-                            {% csrf_token %}
-                            <button id="deleteBtn">Delete</button>
-                        </form>
+    {% for post in all_posts %}
+        <article class="post-card" id="post-{{ post.id }}">
+            <header class="post-head">
+                <a class="avatar" href="{% url 'user_info' post.user.id %}">
+                    {% if post.user.avatar %}
+                        <img src="{{ post.user.avatar.url }}" alt="{{ post.user.username }}">
+                    {% else %}
+                        {{ post.user.username|first|upper }}
                     {% endif %}
-                </header>
-                <div class="post-copy">
-                    <h3>{{ post.title }}</h3>
-                    <p>{{ post.content }}</p>
-                </div>
-                <div class="post-actions">
-                    <a class="action" href="{% url 'like_post' post.id %}">♡ <span>Like</span></a>
-                    <span class="muted">{{ post.likes.count }} like{{ post.likes.count|pluralize }}</span>
-                </div>
-                <div class="comments">
+                </a>
 
-                    {% for comment in post.comments.all %}
-                        <div class="comment">
-                            <strong>{{ comment.user.username }}</strong>
-                            <p>{{ comment.content }}</p>
-                            <small>{{ comment.created_at }}</small>
-                        </div>
-                    {% empty %}
-                        <p>No comments yet.</p>
-                    {% endfor %}
+                <div class="post-head-info">
+                    <strong>
+                        {{ post.user.username }}
+                    </strong>
+                    <span>{{ post.created_at }}</span>
+                </div>
 
-                    <form method="POST" action="{% url 'add_comment' post.id %}">
+                {% if post.user.username == current_user.username %}
+                    <form method="post" action="{% url 'delete_post' post.id %}">
                         {% csrf_token %}
-
-                        <input
-                            type="text"
-                            name="content"
-                            placeholder="Write a comment..."
-                            required
-                        >
-
-                        <button type="submit">Comment</button>
+                        <button class="delete-button" type="submit">Delete</button>
                     </form>
+                {% endif %}
+            </header>
 
-                </div>
-            </article>
-        {% empty %}<div class="empty-state"><h2>Your feed is quiet.</h2><p>Share the first thought and give your room a little life.</p><a class="primary-button" href="{% url 'add_posts' %}">Create a post</a></div>{% endfor %}
-    </section>
+            <div class="post-copy">
+                <h3>{{ post.title }}</h3>
+                {% if post.post_image %}
+                    <img src="{{ post.post_image.url }}" alt="">
+                    {% else %}
 
+                {% endif %}
+                <p>{{ post.content }}</p>
+            </div>
+
+            <div class="post-actions">
+                <a class="action" href="{% url 'like_post' post.id %}">♡ <span>Like</span></a>
+                <span class="muted">{{ post.likes.count }} like{{ post.likes.count|pluralize }}</span>
+            </div>
+
+            <div class="comments">
+                {% for comment in post.comments.all %}
+                    <div class="comment">
+                        <strong>{{ comment.user.username }}</strong>
+                        <p>{{ comment.content }}</p>
+                        <small>{{ comment.created_at }}</small>
+                    </div>
+                {% empty %}
+                    <p>No comments yet.</p>
+                {% endfor %}
+
+                <form method="POST" action="{% url 'add_comment' post.id %}">
+                    {% csrf_token %}
+                    <input type="text" name="content" placeholder="Write a comment..." required>
+                    <button type="submit">Comment</button>
+                </form>
+            </div>
+        </article>
+    {% empty %}
+        <div class="empty-state">
+            <h2>Your feed is quiet.</h2>
+            <p>Share the first thought and give your room a little life.</p>
+            <a class="primary-button" href="{% url 'add_posts' %}">Create a post</a>
+        </div>
+    {% endfor %}
+</section>
 {% endblock content %}
