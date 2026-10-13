@@ -2,21 +2,25 @@ from django.shortcuts import redirect, render
 from django.shortcuts import get_object_or_404
 
 from .utils import register as register_user, login as login_user, get_current_user, logout as logout_user
-
 from .forms import registerForm, LoginForm
 from .models import User
 
+
 def register(req):
+    form = registerForm()
+
     if req.method == "POST":
-        register_user(req.POST)
-        return redirect("login_user")
+        form = registerForm(req.POST)
+
+        if form.is_valid():
+            register_user(req.POST)
+            return redirect("login_user")
 
     context = {
-        'context': registerForm()
+        "context": form
     }
 
     return render(req, "register.html", context)
-
 
 def login(req):
     context = {

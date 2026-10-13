@@ -49,7 +49,10 @@
             </div>
 
             <div class="post-actions">
-                <a class="action" href="{% url 'like_post' post.id %}">♡ <span>Like</span></a>
+                <a class="action" href="{% url 'like_post' post.id %}">
+                    ♡
+                    <span>Like</span>
+                </a>
                 <span class="muted">{{ post.likes.count }} like{{ post.likes.count|pluralize }}</span>
             </div>
 

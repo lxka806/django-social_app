@@ -63,7 +63,6 @@ def delete_post(req, post_id):
     
     return redirect("all_posts")
 
-
 def add_comment(req, post_id):
     try:
         user = get_current_user()
