@@ -1,0 +1,27 @@
+{% extends "master.html" %}
+
+{% block title %}verification{% endblock title %}
+
+{% block content %}
+    <h1>Verify Your Account</h1>
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="verification_code">Enter your verification code:</label>
+        <input
+            type="text"
+            id="verification_code"
+            name="verification_code"
+            maxlength="6"
+            required
+        >
+
+        <button type="submit">Verify</button>
+    </form>
+{% endblock content %}
+
