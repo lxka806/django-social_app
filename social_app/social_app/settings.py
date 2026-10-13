@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'posts',
+    'chat',
 ]
 
 MEDIA_URL='/avatars/'
@@ -56,6 +57,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'social_app.urls'
+LOGIN_URL = 'login_user'
 
 TEMPLATES = [
     {

@@ -69,7 +69,6 @@ def verify_user(req):
 
     return render(req, "user_verification.html", {"error": error})
 
-
 def login(req):
     context = {"errors": []}
 
@@ -83,6 +82,7 @@ def login(req):
     context["context"] = LoginForm()
 
     return render(req, "login.html", context)
+
 
 
 def get_profile(req):

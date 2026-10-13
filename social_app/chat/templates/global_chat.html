@@ -1,0 +1,40 @@
+
+{% for message in messages %}
+    <article class="chat-message {% if message.user_id == current_user.id %}my-message{% else %}other-message{% endif %}">
+
+        <div class="chat-avatar">
+            {% if message.user.avatar %}
+                <img src="{{ message.user.avatar.url }}" alt="{{ message.user.username }}'s avatar">
+            {% else %}
+                {{ message.user.username|first|upper }}
+            {% endif %}
+        </div>
+
+        <div class="chat-message-body">
+            <div class="chat-message-meta">
+                <span class="chat-username">
+                    {% if message.user_id == current_user.id %}
+                        You
+                    {% else %}
+                        {{ message.user.username }}
+                    {% endif %}
+                </span>
+
+                <span class="chat-time">
+                    {{ message.created_at|date:"H:i" }}
+                </span>
+            </div>
+
+            <div class="chat-bubble">
+                {{ message.content }}
+            </div>
+        </div>
+
+    </article>
+{% empty %}
+    <div class="chat-empty">
+        <div class="chat-empty-icon">✦</div>
+        <h2>Start a conversation</h2>
+        <p>Be the first to send a message to the community.</p>
+    </div>
+{% endfor %}

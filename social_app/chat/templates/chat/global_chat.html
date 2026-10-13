@@ -1,0 +1,62 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}Global Chat{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/global-chat.css' %}">
+
+<div class="global-chat-page">
+    <main class="global-chat">
+        <header class="global-chat-header">
+            <div class="global-chat-heading">
+                <div class="global-chat-icon" aria-hidden="true">G</div>
+                <div>
+                    <h1>Global Chat</h1>
+                    <p>Connect and chat with everyone</p>
+                </div>
+            </div>
+
+            <span class="global-chat-status">
+                <span class="status-dot"></span>
+                Community
+            </span>
+        </header>
+
+        <section class="global-chat-messages" id="messages" aria-label="Chat messages">
+            {% include "global_chat.html" %}
+        </section>
+
+        <form method="post" class="global-chat-form">
+            {% csrf_token %}
+            <div class="chat-input-wrapper">
+                <input
+                    type="text"
+                    name="content"
+                    id="chat-input"
+                    placeholder="Write a message..."
+                    maxlength="1000"
+                    autocomplete="off"
+                    aria-label="Write a message"
+                    required
+                >
+            </div>
+            <button type="submit" class="chat-send-button">
+                <span>Send</span>
+            </button>
+        </form>
+
+        <p class="chat-footer-note">
+            Keep the conversation friendly and respectful.
+        </p>
+    </main>
+</div>
+
+<script>
+    const messagesContainer = document.getElementById("messages");
+
+    if (messagesContainer) {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+</script>
+{% endblock %}
